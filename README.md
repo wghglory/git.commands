@@ -4,7 +4,7 @@
 
 ```bash
 touch firstFile.md
-touch README.md
+vi README.md
 
 git status    # Untracked files
 
@@ -26,6 +26,7 @@ If I change staged file (firstFile.md), the changed file is modified. 2 options:
 ```bash
 git add .   # 暂存区状态a，修改该文件，并把最新的修改保存，更新暂存区里那个文件 (vscode CHANGES "+")
 
+# 撤销暂存区被修改了、但还没有 commit 的文件
 git checkout -- <file>  # to discard last change, 暂存区状态a，修改该文件，此命令撤销小改，回到状态a。(vscode CHANGES "revert sign")
 git checkout -- .  # to discard all modified changes for all files, 暂存区状态a，修改该文件，此命令撤销小改，回到状态a。(vscode "discard all changes")
 ```
@@ -36,12 +37,26 @@ git checkout -- .  # to discard all modified changes for all files, 暂存区状
 
 ```bash
 git commit -m 'first commit'
+```
 
-# if previous commit is missing something, or message is wrong. Still that commit, not creating a new commit
+#### 修改最近一次的提交信息
+
+If previous commit is missing something, or message is wrong. Still that commit, not creating a new commit.
+
+```bash
 git commit --amend  # press "i" to insert mode, press "esc" to quit insert mode, ":wq" to quit vm
 git commit --amend -m 'first commit directly'
 
 git log # review commits
+```
+
+#### reset local changes(undo recent commit)
+
+scenery: 你已经在本地做了一些 commit（还没push），但所有的东西都糟糕透了，你想撤销最近的三次提交——就像它们从没发生过一样。
+
+```bash
+git reset HEAD # 会保留工作目录
+git reset HEAD~2 --hard # “撤销”所有提交和本地修改
 ```
 
 ### remote
